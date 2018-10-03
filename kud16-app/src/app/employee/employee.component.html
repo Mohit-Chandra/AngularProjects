@@ -1,0 +1,49 @@
+<app-employee-list-count [all]="getAllEmployees()"
+[male]="getMaleEmployees()"
+[female]="getFemaleEmployees()"
+(countRadioButtonSelectionChanged) = "onEmployeeCountRadioButtonChange($event)"></app-employee-list-count>
+<table>
+  <thead>
+      <tr>
+          <th>Code</th>
+          <th>Name</th>
+          <th>Gender</th>
+          <th>Annual Salary</th>
+          <th>Date of Birth</th>
+          <th>Index</th>
+          <th>iSFirst</th>
+          <th>isLast</th>
+          <th>isEven</th>
+          <th>isOdd</th>
+      </tr>
+  </thead>
+  <tbody>
+      <ng-container *ngFor="let emp of employees;trackBy:trackByEmpCode;let i = index;
+      let isFirst=first;let isLast=last;let isEven = even;let isOdd=odd">
+    <tr 
+    *ngIf="selectedEmployeeCountRadiobutton=='All' ||
+    selectedEmployeeCountRadiobutton==emp.gender">
+      <td>{{emp.code}}</td>
+      <td>{{emp.name | employeeTitlePipe:emp.gender }}</td>
+      <td>{{emp.gender}}</td>
+      <td>{{emp.annualSalary}}</td>
+      <td>{{emp.dateOfBirth}}</td>
+      <td>{{i}}</td>
+      <td>{{isFirst}}</td>
+      <td>{{isLast}}</td>
+      <td>{{isEven}}</td>
+      <td>{{isOdd}}</td>
+    </tr>
+    <tr *ngIf="!employees || employees.length==0">
+      <td colspan="5">
+          No employees to display
+      </td>
+  </tr>
+</ng-container>
+  </tbody>
+  </table>
+<br/>
+<button (click)="getEmployees()">Refresh Employess</button>
+
+<input [(ngModel)]="studentName" #stuName>
+<p>{{stuName.value}}</p>
